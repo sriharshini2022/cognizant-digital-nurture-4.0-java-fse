@@ -1,10 +1,6 @@
 
 # 💻✨ Digital Nurture 4.0 – Java FSE Upskilling Solutions ✨💻
 
-![GitHub repo size](https://img.shields.io/github/repo-size/your-username/your-repo?color=blueviolet&style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/your-username/your-repo?style=flat-square)
-![Visitors](https://visitor-badge.laobi.icu/badge?page_id=your-username.your-repo)
-
 > 🎓 **This repository is part of my learning journey in Cognizant's Digital Nurture 4.0 Program for Java Full Stack Engineers (FSE).**
 
 📌 Original questions were sourced from:  
@@ -66,7 +62,7 @@ All exercises are organized and clearly labeled. ✅
 
 ## 🚧 Tools & Platforms Used
 
-- 🔧 **IDE**: VS Code, IntelliJ IDEA, Eclipse
+- 🔧 **IDE**: VS Code, Eclipse
 - 🧮 **Database**: MySQL Workbench
 - 🌐 **Online Compilers**: W3Schools, JDoodle, OneCompiler
 - 📁 **Version Control**: Git + GitHub
@@ -92,7 +88,7 @@ It is meant for **learning and reference only**. If you're currently taking this
 ## 🙌 Let's Connect!
 
 If you find this helpful, give it a ⭐ and feel free to fork it.  
-Got questions? Open an [Issue](https://github.com/your-username/your-repo/issues) or [connect on LinkedIn](https://linkedin.com/in/your-profile)!
+Got questions? [connect on LinkedIn](www.linkedin.com/in/vallabhajosyula-sri-harshini-a822ab283)!
 
 ---
 
