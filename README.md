@@ -85,10 +85,8 @@ It is meant for **learning and reference only**. If you're currently taking this
 
 ---
 
-## 🙌 Let's Connect!
-
 If you find this helpful, give it a ⭐ and feel free to fork it.  
-Got questions? [connect on LinkedIn](www.linkedin.com/in/vallabhajosyula-sri-harshini-a822ab283)!
+
 
 ---
 
