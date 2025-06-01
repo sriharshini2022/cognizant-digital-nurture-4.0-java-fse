@@ -51,8 +51,8 @@
 ## 🛠 How to Use
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/sriharshini2022/cognizant-digital-nurture-4.0-java-fse.git
+cd cognizant-digital-nurture-4.0-java-fse
 ```
 
 Explore each module folder to review the exercises and solutions.  
