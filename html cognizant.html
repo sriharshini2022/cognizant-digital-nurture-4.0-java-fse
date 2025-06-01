@@ -1,0 +1,157 @@
+<!-- Question 1: HTML5 Base Template -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Local Community Event Portal</title>
+<style>
+#welcomeBanner { background-color: #2196F3; color: white; padding: 20px; text-align: center; margin-bottom: 15px; border-radius: 6px; }
+.highlight { background: yellow; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
+.gallery-img { border: 3px solid #555; border-radius: 8px; width: 150px; height: 100px; object-fit: cover; cursor: pointer; }
+form { background: #f3f3fa; padding: 20px; border-radius: 6px; width: 350px; margin: 0 auto 20px auto; }
+form input, form select, form textarea { display: block; width: 95%; margin-bottom: 12px; padding: 8px; border: 1px solid #bbb; border-radius: 4px; }
+form label { font-weight: bold; }
+#confirmationMsg { color: green; font-weight: bold; }
+#eventFee { margin-bottom: 10px; color: #2196F3; }
+#videoReadyMsg { color: #4CAF50; font-weight: bold; margin-bottom: 8px; }
+#geoResult { margin-top: 10px; font-weight: bold; }
+</style>
+<script>
+window.addEventListener('DOMContentLoaded', function() { const storedType = localStorage.getItem('preferredEventType'); if (storedType && document.getElementById('eventType')) { document.getElementById('eventType').value = storedType; } });
+window.onbeforeunload = function() { const form = document.getElementById('eventForm'); if (form && form.dataset.dirty === 'true') { return 'You have unsaved changes. Leave the page?'; } };
+</script>
+</head>
+<body>
+<!-- Navigation -->
+<nav>
+<a href="#home">Home</a> |
+<a href="#events">Events</a> |
+<a href="#contact">Contact</a> |
+<a href="help.html" target="_blank">Help</a>
+</nav>
+<!-- Main Content -->
+<main>
+<!-- Welcome Banner -->
+<div id="welcomeBanner">
+Welcome, <span class="highlight">Community Member!</span> <br>
+<span style="color:red; font-weight:bold;">Limited time: <span class="highlight">50% off registration!</span></span>
+</div>
+<!-- Home Section -->
+<section id="home">
+<h2>Home</h2>
+<p>Welcome to the Local Community Event Portal. Use the navigation to browse events, register, and get in touch!</p>
+</section>
+<!-- Image Gallery -->
+<section id="events">
+<h2>Upcoming and Past Events</h2>
+<table>
+<caption>Memorable Moments from Previous Events</caption>
+<tr>
+<td>
+<img src="event1.jpg" alt="Spring Festival Crowd" title="Spring Festival" class="gallery-img" ondblclick="enlargeImg(this)">
+<div class="highlight">Spring Festival</div>
+</td>
+<td>
+<img src="event2.jpg" alt="Charity Run Participants" title="Charity Run" class="gallery-img" ondblclick="enlargeImg(this)">
+<div>Charity Run</div>
+</td>
+<td>
+<img src="event3.jpg" alt="Food Fair Booths" title="Food Fair" class="gallery-img" ondblclick="enlargeImg(this)">
+<div>Food Fair</div>
+</td>
+</tr>
+<tr>
+<td>
+<img src="event4.jpg" alt="Music Night Stage" title="Music Night" class="gallery-img" ondblclick="enlargeImg(this)">
+<div>Music Night</div>
+</td>
+<td>
+<img src="event5.jpg" alt="Art Exhibition Gallery" title="Art Exhibition" class="gallery-img" ondblclick="enlargeImg(this)">
+<div>Art Exhibition</div>
+</td>
+<td>
+<img src="event6.jpg" alt="Kids Science Workshop" title="Science Workshop" class="gallery-img" ondblclick="enlargeImg(this)">
+<div class="highlight">Science Workshop</div>
+</td>
+</tr>
+</table>
+</section>
+<!-- Registration Form -->
+<section>
+<h2>Register for an Event</h2>
+<form id="eventForm" autocomplete="on" onsubmit="return submitForm(event)">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" placeholder="Your full name" required autofocus>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" placeholder="email@example.com" required>
+<label for="date">Event Date:</label>
+<input type="date" id="date" name="date" required>
+<label for="eventType">Event Type:</label>
+<select id="eventType" name="eventType" required onchange="updateEventFee(this)">
+<option value="">Select an event</option>
+<option value="Festival">Festival</option>
+<option value="Run">Charity Run</option>
+<option value="Food">Food Fair</option>
+<option value="Music">Music Night</option>
+<option value="Art">Art Exhibition</option>
+<option value="Science">Science Workshop</option>
+</select>
+<div id="eventFee"></div>
+<label for="message">Message:</label>
+<textarea id="message" name="message" rows="3" placeholder="Any special requirements?" onkeyup="charCount(this)"></textarea>
+<div>Characters: <span id="charCounter">0</span></div>
+<label for="phone">Phone Number:</label>
+<input type="tel" id="phone" name="phone" placeholder="123-456-7890" onblur="validatePhone()">
+<div id="phoneError" style="color:red;"></div>
+<button type="submit" onclick="return confirmSubmit()">Register</button>
+<output id="confirmationMsg"></output>
+</form>
+<button onclick="clearPreferences()">Clear Preferences</button>
+</section>
+<!-- Geolocation -->
+<section>
+<h2>Find Nearby Events</h2>
+<button onclick="findNearbyEvents()">Find Nearby Events</button>
+<div id="geoResult"></div>
+</section>
+<!-- Video Invite -->
+<section>
+<h2>Event Promo Video</h2>
+<div id="videoReadyMsg"></div>
+<video id="promoVideo" width="400" controls oncanplay="videoReady()">
+<source src="event_promo.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+</section>
+<!-- Contact Section -->
+<section id="contact">
+<h2>Contact Us</h2>
+<p>Email: events@citycouncil.gov</p>
+<p>Phone: (123) 456-7890</p>
+</section>
+</main>
+<!-- Footer -->
+<footer>
+<p>&copy; 2025 Local City Council. All rights reserved.</p>
+</footer>
+<script>
+function validatePhone() { const phone = document.getElementById('phone').value; const errorDiv = document.getElementById('phoneError'); const phoneRegex = /^\d{3}-\d{3}-\d{4}$/; if (phone && !phoneRegex.test(phone)) { errorDiv.textContent = "Invalid phone format. Use 123-456-7890."; return false; } else { errorDiv.textContent = ""; return true; } }
+function updateEventFee(select) { const fees = { 'Festival': '$10', 'Run': '$15', 'Food': '$8', 'Music': '$12', 'Art': '$7', 'Science': '$5' }; const feeDiv = document.getElementById('eventFee'); if (select.value && fees[select.value]) { feeDiv.textContent = 'Fee: ' + fees[select.value]; } else { feeDiv.textContent = ''; } localStorage.setItem('preferredEventType', select.value); }
+function confirmSubmit() { return confirm('Do you want to submit your registration?'); }
+function submitForm(event) { event.preventDefault(); if (!validatePhone()) return false; document.getElementById('confirmationMsg').value = "Registration submitted! Thank you."; document.getElementById('confirmationMsg').textContent = "Registration submitted! Thank you."; document.getElementById('eventForm').reset(); document.getElementById('eventFee').textContent = ''; document.getElementById('charCounter').textContent = '0'; document.getElementById('eventForm').dataset.dirty = 'false'; return false; }
+function enlargeImg(img) { if (img.style.transform === "scale(2)") { img.style.transform = "scale(1)"; img.style.zIndex = ""; img.style.position = ""; } else { img.style.transform = "scale(2)"; img.style.zIndex = "10"; img.style.position = "relative"; } }
+function charCount(textarea) { document.getElementById('charCounter').textContent = textarea.value.length; document.getElementById('eventForm').dataset.dirty = 'true'; }
+function videoReady() { document.getElementById('videoReadyMsg').textContent = "Video ready to play!"; }
+function clearPreferences() { localStorage.clear(); sessionStorage.clear(); alert('Preferences cleared.'); if (document.getElementById('eventType')) { document.getElementById('eventType').value = ''; document.getElementById('eventFee').textContent = ''; } }
+function findNearbyEvents() { const geoResult = document.getElementById('geoResult'); if (!navigator.geolocation) { geoResult.textContent = "Geolocation is not supported by your browser."; return; } geoResult.textContent = "Locating..."; navigator.geolocation.getCurrentPosition( function(position) { geoResult.textContent = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`; }, function(error) { switch(error.code) { case error.PERMISSION_DENIED: geoResult.textContent = "Permission denied for geolocation."; break; case error.POSITION_UNAVAILABLE: geoResult.textContent = "Location information is unavailable."; break; case error.TIMEOUT: geoResult.textContent = "Location request timed out."; break; default: geoResult.textContent = "Unknown geolocation error."; } }, {enableHighAccuracy: true, timeout: 10000, maximumAge: 0} ); }
+/*
+- Open Chrome DevTools (F12 or Ctrl+Shift+I)
+- Inspect Element: Right-click element, choose 'Inspect', and edit HTML/CSS live.
+- Console: Use console.log() in these scripts to print debug info, errors, or object states.
+- Sources: Set breakpoints in JS code, reload to step through code and watch variables.
+- Network: Check that resources (images, video) are loaded without errors.
+- Use VS Code for code highlighting, intellisense, and integrated debugging.
+*/
+</script>
+</body>
+</html>
